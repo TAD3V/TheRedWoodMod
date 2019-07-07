@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockFirstBlock extends BlockRotatedPillar {
-	public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.<EnumAxis>create("axis", EnumAxis.class);
+	public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.<BlockLog.EnumAxis>create("axis", BlockLog.EnumAxis.class);
 	
 	public BlockFirstBlock() {
 		super(Material.WOOD);
@@ -24,19 +24,13 @@ public class BlockFirstBlock extends BlockRotatedPillar {
 		setHardness(2.0F);
 	}
 	
-	/**
-     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-     * IBlockstate
-     */
+	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
+        return getStateFromMeta(meta).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
     }
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
+    @Override
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
         switch (rot)
@@ -44,7 +38,7 @@ public class BlockFirstBlock extends BlockRotatedPillar {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
 
-                switch ((EnumAxis)state.getValue(LOG_AXIS))
+                switch ((BlockLog.EnumAxis)state.getValue(LOG_AXIS))
                 {
                     case X:
                         return state.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
@@ -61,44 +55,4 @@ public class BlockFirstBlock extends BlockRotatedPillar {
 
     @Override public boolean canSustainLeaves(IBlockState state, net.minecraft.world.IBlockAccess world, BlockPos pos){ return true; }
     @Override public boolean isWood(net.minecraft.world.IBlockAccess world, BlockPos pos){ return true; }
-
-    public static enum EnumAxis implements IStringSerializable
-    {
-        X("x"),
-        Y("y"),
-        Z("z"),
-        NONE("none");
-
-        private final String name;
-
-        private EnumAxis(String name)
-        {
-            this.name = name;
-        }
-
-        public String toString()
-        {
-            return this.name;
-        }
-
-        public static EnumAxis fromFacingAxis(EnumFacing.Axis axis)
-        {
-            switch (axis)
-            {
-                case X:
-                    return X;
-                case Y:
-                    return Y;
-                case Z:
-                    return Z;
-                default:
-                    return NONE;
-            }
-        }
-
-        public String getName()
-        {
-            return this.name;
-        }
-    }
 }
