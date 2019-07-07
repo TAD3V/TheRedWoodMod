@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":    { "model": "theredwoodmod:first_block" },
+        "axis=z":     { "model": "theredwoodmod:first_block", "x": 90 },
+        "axis=x":     { "model": "theredwoodmod:first_block", "x": 90, "y": 90 }
+    }
+}

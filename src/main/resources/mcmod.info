@@ -1,0 +1,16 @@
+[
+{
+  "modid": "theredwoodmod",
+  "name": "The Redwood Mod",
+  "description": "A mod that adds the amazing Sequoia Redwood Trees to the game.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://redwood.duat.me",
+  "updateUrl": "",
+  "authorList": ["TAD3V"],
+  "credits": "TAD3V",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
